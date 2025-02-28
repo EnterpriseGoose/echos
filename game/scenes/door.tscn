@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqsuupkww4xol"]
+
+[ext_resource type="Script" path="res://scripts/door.gd" id="1_wrmfh"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2hg33"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u84fv"]
+radius = 19.0
+height = 302.0
+
+[sub_resource type="Gradient" id="Gradient_53vgs"]
+offsets = PackedFloat32Array(0, 0.520548, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kl1wo"]
+gradient = SubResource("Gradient_53vgs")
+width = 50
+height = 250
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hc3i"]
+size = Vector2(17, 1374.19)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_wrmfh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 9
+collision_mask = 16
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+modulate = Color(0.288097, 0.3846, 9.62615e-08, 1)
+light_mask = 5
+position = Vector2(0, -151)
+scale = Vector2(38, 302)
+texture = SubResource("PlaceholderTexture2D_2hg33")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -151)
+shape = SubResource("CapsuleShape2D_u84fv")
+
+[node name="PointLight2D" type="PointLight2D" parent="StaticBody2D"]
+position = Vector2(5.68434e-14, -151)
+scale = Vector2(1, 1.208)
+range_item_cull_mask = 4
+texture = SubResource("GradientTexture2D_kl1wo")
+
+[node name="CameraBarrier" type="StaticBody2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBarrier"]
+position = Vector2(29, -151)
+shape = SubResource("RectangleShape2D_5hc3i")

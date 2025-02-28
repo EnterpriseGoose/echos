@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c87o1svwx3tqw"]
+
+[ext_resource type="Texture2D" uid="uid://7kt345uc4k5u" path="res://sprites/guide-light.png" id="1_sd4vl"]
+[ext_resource type="Script" path="res://scripts/guide_light.gd" id="1_uqvi0"]
+
+[sub_resource type="Gradient" id="Gradient_8pjoc"]
+offsets = PackedFloat32Array(0, 0.821918)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ehsta"]
+gradient = SubResource("Gradient_8pjoc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.786325, 0.188034)
+
+[node name="GuideLight" type="Node2D"]
+script = ExtResource("1_uqvi0")
+light_level = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_ehsta")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_sd4vl")

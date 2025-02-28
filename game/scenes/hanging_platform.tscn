@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://b72q84b75hahv"]
+
+[ext_resource type="PackedScene" uid="uid://dikle6i1q71cs" path="res://scenes/chain.tscn" id="1_enl5e"]
+[ext_resource type="Script" path="res://scripts/hanging_platform.gd" id="1_tgpwa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7sbj6"]
+size = Vector2(489, 17.375)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uhh6d"]
+
+[node name="HangingPlatform" type="Node2D" node_paths=PackedStringArray("platform")]
+script = ExtResource("1_tgpwa")
+platform = NodePath("Chain/Pin2/Platform/RigidBody2D")
+
+[node name="Chain" parent="." node_paths=PackedStringArray("pin2") instance=ExtResource("1_enl5e")]
+pin2 = NodePath("Pin2/Platform/RigidBody2D")
+
+[node name="Pin2" parent="Chain" index="1"]
+position = Vector2(0, 125)
+collision_mask = 0
+
+[node name="Platform" type="Node2D" parent="Chain/Pin2" index="1"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Chain/Pin2/Platform"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Chain/Pin2/Platform/RigidBody2D"]
+position = Vector2(-0.500015, -0.125)
+shape = SubResource("RectangleShape2D_7sbj6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Chain/Pin2/Platform/RigidBody2D"]
+position = Vector2(-0.500015, -0.125)
+scale = Vector2(489, 17.75)
+texture = SubResource("PlaceholderTexture2D_uhh6d")
+
+[editable path="Chain"]

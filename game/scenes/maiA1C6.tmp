@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://bop48i2p3bjqt"]
+
+[ext_resource type="PackedScene" uid="uid://dih5uy7i3vyol" path="res://scenes/level.tscn" id="1_ieu4w"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_tv6hp"]
+[ext_resource type="PackedScene" uid="uid://c75flpkd3wxnr" path="res://scenes/camera_follower.tscn" id="2_5cjoi"]
+[ext_resource type="PackedScene" uid="uid://dn14tb0q0d4mk" path="res://scenes/player.tscn" id="2_t7rfg"]
+[ext_resource type="PackedScene" uid="uid://bmybyeyl6kei5" path="res://scenes/lightpost.tscn" id="4_ssek8"]
+
+[sub_resource type="Gradient" id="Gradient_54e0q"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4y8jd"]
+gradient = SubResource("Gradient_54e0q")
+
+[sub_resource type="Gradient" id="Gradient_r0yvn"]
+offsets = PackedFloat32Array(0.515982, 0.56621, 0.648402)
+colors = PackedColorArray(0.497474, 0.497474, 0.497474, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x1hk1"]
+gradient = SubResource("Gradient_r0yvn")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_tv6hp")
+player_view = null
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-511, 2750)
+scale = Vector2(3283.5, 6674)
+editor_only = true
+texture = SubResource("GradientTexture1D_4y8jd")
+texture_scale = 50.0
+
+[node name="Level" parent="." instance=ExtResource("1_ieu4w")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_5cjoi")]
+player = NodePath("../Player")
+
+[node name="Lightpost" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_ssek8")]
+position = Vector2(699, 166)
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("2_t7rfg")]
+position = Vector2(-803, 273)
+collision_mask = 1073741825
+
+[node name="PointLight2D" parent="Player" index="3"]
+position = Vector2(-36, -49)
+
+[node name="Level Bounds" type="StaticBody2D" parent="."]
+collision_layer = 3221225472
+collision_mask = 2147483648
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level Bounds"]
+polygon = PackedVector2Array(-962, -627, -961, 540, 6338, 540, 6510, 687, -1420, 677, -1421, -740, -1001, -1715, 6402, -669)
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+energy = 1.5
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_x1hk1")
+
+[editable path="Player"]

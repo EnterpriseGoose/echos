@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dikle6i1q71cs"]
+
+[ext_resource type="Script" path="res://scripts/chain.gd" id="1_rul0d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fc3jd"]
+radius = 1.0
+
+[node name="Chain" type="Node2D" node_paths=PackedStringArray("pin1", "pin2", "chain_start", "chain_end")]
+script = ExtResource("1_rul0d")
+pin1 = NodePath("Pin1")
+pin2 = NodePath("Pin2")
+chain_start = NodePath("Pin1")
+chain_end = NodePath("Pin2")
+
+[node name="Pin1" type="StaticBody2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pin1"]
+shape = SubResource("CircleShape2D_fc3jd")
+
+[node name="Pin2" type="RigidBody2D" parent="."]
+position = Vector2(0, 55)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pin2"]
+shape = SubResource("CircleShape2D_fc3jd")
+
+[node name="Chains" type="Node2D" parent="."]

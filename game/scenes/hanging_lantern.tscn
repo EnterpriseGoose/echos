@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmqt2qjig5eof"]
+
+[ext_resource type="Script" path="res://scripts/hanging_lantern.gd" id="1_8g7u4"]
+[ext_resource type="PackedScene" uid="uid://dikle6i1q71cs" path="res://scenes/chain.tscn" id="1_arwpm"]
+[ext_resource type="PackedScene" uid="uid://cemb77dwi7hag" path="res://scenes/lantern.tscn" id="2_boqx4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqoo2"]
+size = Vector2(22, 44.5)
+
+[node name="HangingLantern" type="Node2D" node_paths=PackedStringArray("lantern")]
+script = ExtResource("1_8g7u4")
+lantern = NodePath("Chain/Pin2/Lantern")
+
+[node name="Chain" parent="." node_paths=PackedStringArray("pin2") instance=ExtResource("1_arwpm")]
+pin2 = NodePath("Pin2/Lantern/RigidBody2D")
+
+[node name="Pin2" parent="Chain" index="1"]
+collision_mask = 0
+
+[node name="Lantern" parent="Chain/Pin2" index="1" instance=ExtResource("2_boqx4")]
+
+[node name="RigidBody2D" parent="Chain/Pin2/Lantern" index="0"]
+mass = 1.0
+
+[node name="Area2D" type="Area2D" parent="Chain/Pin2/Lantern/RigidBody2D" index="7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chain/Pin2/Lantern/RigidBody2D/Area2D"]
+position = Vector2(0, 29.75)
+shape = SubResource("RectangleShape2D_cqoo2")
+
+[connection signal="chain_built" from="Chain" to="." method="_on_chain_chain_built"]
+[connection signal="area_entered" from="Chain/Pin2/Lantern/RigidBody2D/Area2D" to="." method="_on_area_2d_area_entered"]
+
+[editable path="Chain"]
+[editable path="Chain/Pin2/Lantern"]

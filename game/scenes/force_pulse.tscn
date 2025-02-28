@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj06d4wnkehb6"]
+
+[ext_resource type="Script" path="res://scripts/force_pulse.gd" id="1_a6ukv"]
+
+[sub_resource type="Gradient" id="Gradient_1hip2"]
+offsets = PackedFloat32Array(0.538813, 0.607306, 0.689498)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1d0iu"]
+gradient = SubResource("Gradient_1hip2")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eooxq"]
+radius = 255.0
+
+[node name="ForcePulse" type="PointLight2D"]
+color = Color(0.405008, 1, 0.997649, 1)
+energy = 1.5
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_1d0iu")
+script = ExtResource("1_a6ukv")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_eooxq")

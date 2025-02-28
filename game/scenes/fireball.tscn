@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://tkrtx5h2p6iw"]
+
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_grbnr"]
+[ext_resource type="Texture2D" uid="uid://bmajrv6ujfv6y" path="res://sprites/fireball.png" id="2_m1caq"]
+
+[sub_resource type="Gradient" id="Gradient_i8ke0"]
+offsets = PackedFloat32Array(0, 0.657534, 0.785388)
+colors = PackedColorArray(1, 1, 1, 1, 0.0523255, 0.0523255, 0.0523255, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h4g8e"]
+gradient = SubResource("Gradient_i8ke0")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Fireball" type="Node2D"]
+script = ExtResource("1_grbnr")
+
+[node name="Fireball" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_m1caq")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.1, 0.1)
+color = Color(1, 1, 0.85098, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_h4g8e")
+texture_scale = 5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 21
+collision_mask = 17
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-24, -10, 2, -15, 19, -11, 25, -3, 24, 6, 15, 15, -14, 14, -25, 11, -22, 2)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

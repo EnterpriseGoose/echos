@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn14tb0q0d4mk"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_1mdxw"]
+[ext_resource type="Texture2D" uid="uid://lvxtcypfeb3e" path="res://sprites/player.svg" id="1_rlb1n"]
+[ext_resource type="PackedScene" uid="uid://cemb77dwi7hag" path="res://scenes/lantern.tscn" id="3_clffo"]
+
+[sub_resource type="Gradient" id="Gradient_r0yvn"]
+offsets = PackedFloat32Array(0.155251, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_60bds"]
+gradient = SubResource("Gradient_r0yvn")
+width = 512
+height = 512
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("lantern")]
+position = Vector2(3, -2)
+collision_layer = 2
+floor_constant_speed = true
+script = ExtResource("1_1mdxw")
+speed = 10
+jump_speed = 4
+gravity = 15
+lantern = NodePath("Lantern")
+view = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-98, 24, -44, 110, 31, 84, 40, -4, 102, -4, 90, -73, 47, -58, 31, -105, -18, -102, -53, -40)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, 0)
+scale = Vector2(1.01786, 1.01786)
+texture = ExtResource("1_rlb1n")
+
+[node name="Lantern" parent="." instance=ExtResource("3_clffo")]
+position = Vector2(87, -65)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_60bds")

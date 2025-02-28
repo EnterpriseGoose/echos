@@ -1,0 +1,229 @@
+[gd_scene load_steps=30 format=3 uid="uid://cemb77dwi7hag"]
+
+[ext_resource type="Script" path="res://scripts/lantern.gd" id="1_n46eb"]
+[ext_resource type="Texture2D" uid="uid://clj82offc4ndm" path="res://sprites/lantern-empty.png" id="2_v3x1u"]
+[ext_resource type="Texture2D" uid="uid://nhrqppkktxl7" path="res://sprites/lamp_light_map.png" id="3_68ewr"]
+[ext_resource type="Texture2D" uid="uid://ctl5duovf1eyo" path="res://sprites/lantern-fire.png" id="4_xjfuc"]
+[ext_resource type="Texture2D" uid="uid://bu413tluk5x8y" path="res://sprites/lantern-force.png" id="5_v74a8"]
+[ext_resource type="Texture2D" uid="uid://clbnwtm8y2jle" path="res://sprites/lantern-fire-particle.png" id="6_et7em"]
+[ext_resource type="Texture2D" uid="uid://gf23pyumrjmb" path="res://sprites/lantern-force-particle.png" id="7_j3ob2"]
+
+[sub_resource type="Gradient" id="Gradient_iospt"]
+offsets = PackedFloat32Array(0, 0.00913242, 0.0365297, 0.712329)
+colors = PackedColorArray(1, 1, 1, 1, 0.935897, 0.935897, 0.935897, 1, 0.362829, 0.362829, 0.362829, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tb6p6"]
+gradient = SubResource("Gradient_iospt")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_26ph2"]
+offsets = PackedFloat32Array(0, 0.420091, 0.716895)
+colors = PackedColorArray(1, 1, 1, 1, 0.958904, 0.958904, 0.958904, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fevlt"]
+gradient = SubResource("Gradient_26ph2")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgfdv"]
+atlas = ExtResource("4_xjfuc")
+region = Rect2(0, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw78q"]
+atlas = ExtResource("4_xjfuc")
+region = Rect2(8, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1saf"]
+atlas = ExtResource("4_xjfuc")
+region = Rect2(16, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iojg7"]
+atlas = ExtResource("4_xjfuc")
+region = Rect2(24, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sm8qq"]
+atlas = ExtResource("5_v74a8")
+region = Rect2(0, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne4oh"]
+atlas = ExtResource("5_v74a8")
+region = Rect2(8, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykv6k"]
+atlas = ExtResource("5_v74a8")
+region = Rect2(16, 0, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnwb2"]
+atlas = ExtResource("5_v74a8")
+region = Rect2(24, 0, 8, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3dcu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgfdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw78q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1saf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iojg7")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sm8qq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne4oh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykv6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnwb2")
+}],
+"loop": true,
+"name": &"force",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7iuv"]
+atlas = ExtResource("6_et7em")
+region = Rect2(0, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypnyu"]
+atlas = ExtResource("6_et7em")
+region = Rect2(30, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro3jf"]
+atlas = ExtResource("6_et7em")
+region = Rect2(60, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nooqm"]
+atlas = ExtResource("6_et7em")
+region = Rect2(90, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsm1w"]
+atlas = ExtResource("7_j3ob2")
+region = Rect2(0, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcnc3"]
+atlas = ExtResource("7_j3ob2")
+region = Rect2(30, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8x8kv"]
+atlas = ExtResource("7_j3ob2")
+region = Rect2(60, 0, 30, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd1vl"]
+atlas = ExtResource("7_j3ob2")
+region = Rect2(90, 0, 30, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_23f73"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7iuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypnyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro3jf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nooqm")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsm1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcnc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8x8kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd1vl")
+}],
+"loop": true,
+"name": &"force",
+"speed": 5.0
+}]
+
+[node name="Lantern" type="Node2D" node_paths=PackedStringArray("light", "enemy_light", "collider")]
+script = ExtResource("1_n46eb")
+light = NodePath("RigidBody2D/MainLight")
+enemy_light = NodePath("RigidBody2D/EnemyLight")
+collider = NodePath("RigidBody2D")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+mass = 2.0
+gravity_scale = 2.0
+angular_damp = 5.0
+
+[node name="MainLight" type="PointLight2D" parent="RigidBody2D"]
+position = Vector2(0, 30)
+color = Color(0.8296, 0.944752, 0.939267, 1)
+energy = 2.5
+texture = SubResource("GradientTexture2D_tb6p6")
+texture_scale = 0.01
+
+[node name="Empty-lantern" type="Sprite2D" parent="RigidBody2D"]
+texture_filter = 1
+position = Vector2(0, 26)
+scale = Vector2(3.7, 3.7)
+texture = ExtResource("2_v3x1u")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+visible = false
+position = Vector2(-1, 10)
+polygon = PackedVector2Array(-3, 16, -11, 21, -19, 51, 20, 51, 18, 43, 7, 20, 1, 16, 2, -10, 1, -12, -1, -9, -3, 16)
+
+[node name="EnemyLight" type="PointLight2D" parent="RigidBody2D"]
+position = Vector2(0, 30)
+range_item_cull_mask = 16
+texture = SubResource("GradientTexture2D_fevlt")
+texture_scale = 5.38
+
+[node name="DirectionalLight" type="PointLight2D" parent="RigidBody2D"]
+position = Vector2(0, 285)
+energy = 0.0
+texture = ExtResource("3_68ewr")
+offset = Vector2(0, -256)
+texture_scale = 0.01
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
+texture_filter = 1
+position = Vector2(-4.76837e-07, 26)
+scale = Vector2(3.7, 3.7)
+sprite_frames = SubResource("SpriteFrames_g3dcu")
+animation = &"fire"
+frame_progress = 0.828505
+
+[node name="Sparkle" type="AnimatedSprite2D" parent="RigidBody2D"]
+texture_filter = 1
+position = Vector2(0, 30)
+scale = Vector2(1.25625, 1.25625)
+sprite_frames = SubResource("SpriteFrames_23f73")
+animation = &"fire"
+frame_progress = 0.315324

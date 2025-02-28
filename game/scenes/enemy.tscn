@@ -1,0 +1,140 @@
+[gd_scene load_steps=17 format=3 uid="uid://dfdgxk2f5yepv"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_vh31y"]
+[ext_resource type="Texture2D" uid="uid://dnhfqnqo76eq7" path="res://sprites/enemy-mad.png" id="2_u5bby"]
+[ext_resource type="Texture2D" uid="uid://bdxnldjls8sgs" path="res://sprites/enemy-fear.png" id="2_ygh2p"]
+[ext_resource type="Texture2D" uid="uid://docquh374csxp" path="res://sprites/enemy-sad.png" id="3_psecq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fdic3"]
+radius = 185.696
+height = 769.12
+
+[sub_resource type="Gradient" id="Gradient_wtlac"]
+offsets = PackedFloat32Array(0, 0.452055, 0.694064)
+colors = PackedColorArray(1, 1, 1, 1, 0.855263, 0.855263, 0.855263, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ucieb"]
+gradient = SubResource("Gradient_wtlac")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skqou"]
+atlas = ExtResource("2_u5bby")
+region = Rect2(0, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpbjo"]
+atlas = ExtResource("2_u5bby")
+region = Rect2(50, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjeqp"]
+atlas = ExtResource("2_u5bby")
+region = Rect2(100, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0x6h"]
+atlas = ExtResource("2_u5bby")
+region = Rect2(150, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu078"]
+atlas = ExtResource("3_psecq")
+region = Rect2(0, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7f24"]
+atlas = ExtResource("3_psecq")
+region = Rect2(50, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_togjo"]
+atlas = ExtResource("3_psecq")
+region = Rect2(100, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcxaf"]
+atlas = ExtResource("3_psecq")
+region = Rect2(150, 0, 50, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywp28"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ygh2p")
+}],
+"loop": true,
+"name": &"fear",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skqou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpbjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjeqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0x6h")
+}],
+"loop": true,
+"name": &"mad",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu078")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7f24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_togjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcxaf")
+}],
+"loop": true,
+"name": &"sad",
+"speed": 4.0
+}]
+
+[node name="Enemy" type="Node2D" groups=["Enemies"]]
+z_index = 100
+script = ExtResource("1_vh31y")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+gravity_scale = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="RigidBody2D" groups=["Enemies"]]
+position = Vector2(1, -3)
+rotation = 1.5708
+scale = Vector2(0.146432, 0.138112)
+shape = SubResource("CapsuleShape2D_fdic3")
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D" groups=["Enemies"]]
+collision_mask = 5
+monitoring = false
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="RigidBody2D/Area2D" groups=["Enemies"]]
+position = Vector2(0.112236, -7.19173)
+rotation = 3.14159
+scale = Vector2(0.146432, 0.138112)
+polygon = PackedVector2Array(-186, 178, 14.4243, 172.384, 171.494, 143.423, 246.615, 114.461, 342.223, 27.5748, 362.711, -109.995, 246.616, -189.641, 96.3748, -211.363, -176.79, -225.845, -310.737, -159.736, -354, -24, -298, 114)
+
+[node name="DeadLight" type="PointLight2D" parent="RigidBody2D"]
+scale = Vector2(0.169335, 0.0853565)
+enabled = false
+energy = 0.5
+range_item_cull_mask = 17
+texture = SubResource("GradientTexture2D_ucieb")
+texture_scale = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
+texture_filter = 1
+scale = Vector2(2.70917, 2.70917)
+sprite_frames = SubResource("SpriteFrames_ywp28")
+animation = &"mad"
+flip_h = true
+
+[connection signal="body_entered" from="RigidBody2D/Area2D" to="." method="_on_area_2d_body_entered"]

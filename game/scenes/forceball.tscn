@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi6oboqnmmblv"]
+
+[ext_resource type="Script" path="res://scripts/forceball.gd" id="1_rm7cy"]
+[ext_resource type="Texture2D" uid="uid://dq7e3qxkfr2i" path="res://sprites/forceball.png" id="2_3roc6"]
+
+[sub_resource type="Gradient" id="Gradient_i8ke0"]
+offsets = PackedFloat32Array(0, 0.657534, 0.785388)
+colors = PackedColorArray(1, 1, 1, 1, 0.0523255, 0.0523255, 0.0523255, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h4g8e"]
+gradient = SubResource("Gradient_i8ke0")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Forceball" type="Node2D"]
+script = ExtResource("1_rm7cy")
+
+[node name="Forceball" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_3roc6")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.1, 0.1)
+color = Color(0.831373, 0.945098, 0.941176, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_h4g8e")
+texture_scale = 5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 21
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-19, -17, -14, -19, 19, -12, 25, -3, 24, 6, 15, 15, -12, 18, -18, 17, -6, 2)

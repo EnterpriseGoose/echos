@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dn7f7du6w8hxx"]
+
+[ext_resource type="FontFile" uid="uid://cqqbr24buyp18" path="res://JosefinSlab.ttf" id="1_nnor7"]
+
+[resource]
+/constants/test = 100
+/fonts/font = ExtResource("1_nnor7")
+Button/fonts/font = ExtResource("1_nnor7")
+Label/fonts/font = ExtResource("1_nnor7")

@@ -7,6 +7,8 @@ var new_light_range: float = light_level
 
 var light_range = light_level
 
+var fading = false
+
 @export var logger = false
 
 func _ready() -> void:
@@ -25,7 +27,7 @@ func _process(delta: float) -> void:
 		new_light_range = 0.05
 	else:
 		new_light_range = light_level
-	if new_light_range != light_range:
+	if new_light_range != light_range and not fading:
 		if (new_light_range > light_range):
 			light_range += (new_light_range - old_light_range) * delta * randf_range(-1.5 , 2)
 		else:
@@ -37,15 +39,7 @@ func _process(delta: float) -> void:
 		$PointLight2D.texture_scale = max(0, randf_range(max(0, light_range-.08, $PointLight2D.texture_scale - 0.02), min(light_range+.08, $PointLight2D.texture_scale + 0.02)))
 	else:
 		$PointLight2D.texture_scale = 0
-		
-	if (Global.player.global_position - global_position).length_squared() <= 200**2 and light_level > 0:
-		print("fade")
-		fade_light(0)
-		
-	if light_range == 0 and $Sprite.modulate.a > 0:
-		print($Sprite.modulate.a)
-		$Sprite.modulate.a = max(0, $Sprite.modulate.a - delta)
-		
+	
 
 func fade_light(level: float) -> void:
 	light_level = level
@@ -58,3 +52,15 @@ func _on_player_view_force_changed(force_mode: bool):
 		$PointLight2D.color = "#d4f1f0"
 	else:
 		$PointLight2D.color = "#ffffd9"
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is not Player:
+		return
+	fading = true
+	while light_range > 0:
+		print(light_range)
+		light_range = max(0, light_range + randf_range(-.2 , .15))
+		$Sprite.modulate.a = light_range
+		await get_tree().create_timer(.025).timeout
+	queue_free()

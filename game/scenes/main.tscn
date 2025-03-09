@@ -1,21 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://bop48i2p3bjqt"]
+[gd_scene load_steps=8 format=3 uid="uid://bop48i2p3bjqt"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_5qfqe"]
+[ext_resource type="Script" uid="uid://c3ehf4grbxd4c" path="res://scripts/main.gd" id="1_5qfqe"]
 [ext_resource type="PackedScene" uid="uid://c75flpkd3wxnr" path="res://scenes/camera_follower.tscn" id="2_5cjoi"]
 [ext_resource type="PackedScene" uid="uid://dn14tb0q0d4mk" path="res://scenes/player.tscn" id="2_t7rfg"]
-[ext_resource type="PackedScene" uid="uid://bkirqjatcep06" path="res://scenes/level1.tscn" id="3_8vroj"]
+[ext_resource type="PackedScene" uid="uid://c8vstkyf1jlwg" path="res://scenes/menu.tscn" id="2_wpwko"]
+[ext_resource type="PackedScene" uid="uid://bkirqjatcep06" path="res://scenes/level_1.tscn" id="5_tbgi4"]
 
-[sub_resource type="Gradient" id="Gradient_54e0q"]
+[sub_resource type="Gradient" id="Gradient_k57mi"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_4k8hc"]
-gradient = SubResource("Gradient_54e0q")
+gradient = SubResource("Gradient_k57mi")
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_5qfqe")
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(8, 0)
+position = Vector2(175, -167)
 
 [node name="PointLight2D" type="PointLight2D" parent="Node2D"]
 position = Vector2(-2309, -2784)
@@ -31,24 +32,38 @@ visible = false
 position = Vector2(-1404, -863)
 color = Color(0, 0, 0, 1)
 
+[node name="PointLight2D2" type="PointLight2D" parent="Node2D"]
+position = Vector2(-7.62746e+06, -1.86529e+07)
+scale = Vector2(1.07814e+07, 4.45423e+07)
+blend_mode = 1
+range_item_cull_mask = 7
+texture = SubResource("GradientTexture1D_4k8hc")
+texture_scale = 50.0
+
 [node name="Camera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_5cjoi")]
-position = Vector2(18169, 40057)
+position = Vector2(915, 679)
 player = NodePath("../Player")
 
-[node name="NewLevel" parent="." instance=ExtResource("3_8vroj")]
-position = Vector2(12350, 20971)
-
 [node name="Player" parent="." node_paths=PackedStringArray("echo_pulse_parent", "fireball_parent") instance=ExtResource("2_t7rfg")]
-position = Vector2(17520, 40142)
+position = Vector2(568, 1045)
+scale = Vector2(0.795, 0.795)
 collision_mask = 1073741825
 safe_margin = 0.1
-speed = 15
-jump_speed = 5
 echo_pulse_parent = NodePath("../EchoPulses")
 fireball_parent = NodePath("../Fireballs")
+lantern_energy = 3
 
 [node name="EchoPulses" type="Node2D" parent="."]
 
 [node name="Fireballs" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("2_wpwko")]
+
+[node name="Level1" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("5_tbgi4")]
+position = Vector2(12075, 21137)
+camera = NodePath("../Camera")
 
 [connection signal="player_die" from="Player" to="." method="_on_player_player_die"]

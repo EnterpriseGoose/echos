@@ -13,7 +13,9 @@ class_name HangingLantern
 
 @export var logger: bool = false
 
+@onready var chain_len = ($Chain.chain_end.position - $Chain.chain_start.position).length()
 var on = false
+var timer = Timer.new()
 
 signal state_changed()
 
@@ -33,21 +35,22 @@ func _process(delta: float) -> void:
 	if logger:
 		print(light_level)
 	if swing > 0:
-		lantern.collider.constant_force = (sin(Time.get_unix_time_from_system() / swing * 5) * Vector2.RIGHT * 100 * swing)
+		var time = chain_len * swing / 100
+		if fmod(Time.get_unix_time_from_system(), time) < time/4:
+			push(Vector2.RIGHT * 1, Vector2.ZERO)
+		if fmod(Time.get_unix_time_from_system(), time) > time/2 && fmod(Time.get_unix_time_from_system(), time) < 3 * time/4:
+			push(Vector2.LEFT * 1, Vector2.ZERO)
 		
-		for chain in $Chain/Chains.get_children():
-			if chain is RigidBody2D:
-				chain.constant_force = (sin(Time.get_unix_time_from_system() / swing * 5) * Vector2.RIGHT * 100 * swing)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Fireball:
 		light_level = max_level
-		lantern.collider.apply_force(Vector2.RIGHT * Global.player.velocity.x * 10, Vector2(0, 50))
+		lantern.apply_force(Vector2.RIGHT * Global.player.velocity.x * 10, Vector2(0, 50))
 		on = true
 		state_changed.emit()
 		
 func push(force: Vector2, pos: Vector2):
-	lantern.collider.apply_force(force * lantern.position.length())
+	lantern.apply_force(force * lantern.position.length())
 		
 	for chain in $Chain/Chains.get_children():
 		if chain is RigidBody2D:

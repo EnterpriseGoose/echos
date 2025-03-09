@@ -5,6 +5,9 @@ var fading = false
 var used = false
 var speed = 1
 
+func _ready() -> void:
+	$Fireball.play("default")
+
 func _process(delta: float) -> void:
 	position += Vector2.from_angle(rotation) * delta * 300 * speed
 	
@@ -24,9 +27,11 @@ func _process(delta: float) -> void:
 	for body: PhysicsBody2D in $Area2D.get_overlapping_bodies():
 		var parent_node = body.get_parent()
 		if parent_node is Door or parent_node is Level1:
+			print($PointLight2D.energy)
 			$PointLight2D.energy = max($PointLight2D.energy - 5 * delta, 0)
 			$Fireball.modulate.a = max($Fireball.modulate.a - 5 * delta, 0)
 			speed = 0.1
+			fading = true
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var enemy_node = body.get_parent()

@@ -38,3 +38,4 @@ func _process(delta: float) -> void:
 			$PointLight2D.energy = max($PointLight2D.energy - 5 * delta, 0)
 			$Forceball.modulate.a = max($Forceball.modulate.a - 5 * delta, 0)
 			speed = 0.1
+			fading = true

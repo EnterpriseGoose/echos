@@ -13,3 +13,11 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+game/sprites
+game/sounds
+
+node_modules
+.env
+.output
+.vinxi

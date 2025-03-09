@@ -6,7 +6,7 @@ class_name CameraFollower
 
 func _process(delta: float) -> void:
 	if not frozen:
-		velocity = ((player.position - position)) * 100 * delta
+		velocity = ((player.position - position)) * 150 * delta
 	else:
 		velocity = Vector2(0, 0)
 		

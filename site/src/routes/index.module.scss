@@ -1,0 +1,121 @@
+.sectionBox {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	min-height: 100%;
+
+	align-items: center;
+	justify-content: center;
+}
+
+.section {
+	&.one {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+		margin-top: 20vh;
+
+		.lightBox {
+			position: absolute;
+			right: 43.5vw;
+			top: 48vh;
+
+			.light {
+				width: 10vw;
+				position: absolute;
+				left: -5vw;
+				top: -5vw;
+				mix-blend-mode: hard-light;
+
+				animation: halfFadeIn 3s ease forwards;
+			}
+		}
+
+		.black {
+			position: absolute;
+			//width: 100%;
+			//height: 100%;
+			//background-color: black;
+		}
+
+		.player {
+			width: 20vw;
+			image-rendering: pixelated;
+
+			animation: fadeIn 3s ease forwards;
+		}
+
+		.arrow {
+			margin-top: 20vh;
+		}
+	}
+
+	&.two {
+		margin-top: 10vh;
+		text-align: center;
+		margin-bottom: 30vh;
+
+		h1 {
+			font-size: 5vw;
+			font-weight: 200;
+		}
+
+		p {
+			font-size: 2vw;
+			font-weight: 100;
+		}
+
+		.downloads {
+			font-size: 2vw;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			gap: 35px;
+			margin-top: 10vh;
+
+			a {
+				color: white;
+				border: 1px white solid;
+				padding: 5px 20px;
+				border-radius: 10px;
+				cursor: pointer;
+				user-select: none;
+
+				transition: all ease-in-out 0.3s;
+
+				&:hover {
+					background-color: #ffffff3b;
+				}
+
+				&.disabled {
+					background-color: #ffffff13;
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0%;
+	}
+
+	to {
+		opacity: 100%;
+	}
+}
+
+@keyframes halfFadeIn {
+	from {
+		opacity: 0%;
+	}
+
+	to {
+		opacity: 50%;
+	}
+}

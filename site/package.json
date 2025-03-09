@@ -1,0 +1,21 @@
+{
+	"name": "example-basic",
+	"type": "module",
+	"scripts": {
+		"dev": "vinxi dev --port 2501 --host",
+		"build": "vinxi build",
+		"start": "vinxi start --port 2500",
+		"version": "vinxi version"
+	},
+	"dependencies": {
+		"@solidjs/meta": "^0.29.4",
+		"@solidjs/router": "^0.15.0",
+		"@solidjs/start": "^1.1.0",
+		"solid-js": "^1.9.5",
+		"vinxi": "^0.5.3",
+		"sass": "^1.85.1"
+	},
+	"engines": {
+		"node": ">=22"
+	}
+}

@@ -1,10 +1,9 @@
-extends Node2D
+extends RigidBody2D
 class_name Lantern
 
 @export var light: PointLight2D
 @export var enemy_light: PointLight2D
 @export var light_level: float
-@export var collider: RigidBody2D
 @export var energy_used: float = 0
 
 var old_light_range: float = 0
@@ -15,8 +14,8 @@ var light_range = light_level
 @export var logger = false
 
 func _ready() -> void:
-	$RigidBody2D/AnimatedSprite2D.play("fire")
-	$RigidBody2D/Sparkle.play("fire")
+	$Flame.play("fire")
+	
 	Global.player_view_force_changed.connect(_on_player_view_force_changed)
 
 func _process(delta: float) -> void:
@@ -52,31 +51,48 @@ func _process(delta: float) -> void:
 		directional_light_level = max(0, directional_light_level - delta * 2)
 	
 	if directional_light_level > 0:
-		set_directional_light_level(max(0, randf_range(max(0, directional_light_level-.15, $RigidBody2D/DirectionalLight.texture_scale - 0.02), min(directional_light_level+.15, $RigidBody2D/DirectionalLight.texture_scale + 0.02))))
+		set_directional_light_level(max(0, randf_range(max(0, directional_light_level-.15, $DirectionalLight.texture_scale - 0.02), min(directional_light_level+.15, $DirectionalLight.texture_scale + 0.02))))
 	else:
 		set_directional_light_level(0)
 		
 
 func fade_light(level: float) -> void:
+	if light_level < .5 and level > .5:
+		$Flame.play("fade_in")
+	if light_level > .5 and level < .5:
+		$Flame.play("fade_out")
+	
 	light_level = level
 	old_light_range = light_range
+	
 	
 	
 var directional_light_level = 0
 
 func set_directional_light_level(level: float):
-	$RigidBody2D/DirectionalLight.texture_scale = level
-	$RigidBody2D/DirectionalLight.energy = 1 + level
-	$RigidBody2D/DirectionalLight.offset.y = (1 - level) * -256
+	$DirectionalLight.texture_scale = level
+	$DirectionalLight.energy = 1 + level
+	$DirectionalLight.offset.y = (1 - level) * -256
 
 func _on_player_view_force_changed(force_mode: bool):
 	if force_mode:
-		$RigidBody2D/AnimatedSprite2D.play("force")
-		$RigidBody2D/Sparkle.play("force")
-		$RigidBody2D/MainLight.color = "#d4f1f0"
-		$RigidBody2D/DirectionalLight.color = "#d4f1f0"
+		if light_level > .5:
+			$Flame.play("force")
+		else:
+			$Flame.play("force")
+		$MainLight.color = "#d4f1f0"
+		$DirectionalLight.color = "#d4f1f0"
 	else:
-		$RigidBody2D/AnimatedSprite2D.play("fire")
-		$RigidBody2D/Sparkle.play("fire")
-		$RigidBody2D/MainLight.color = "#ffffd9"
-		$RigidBody2D/DirectionalLight.color = "#ffffd9"
+		if light_level > .5:
+			$Flame.play("fire")
+		else:
+			$Flame.play("fire_small")
+		$MainLight.color = "#ffffd9"
+		$DirectionalLight.color = "#ffffd9"
+
+
+func _on_flame_animation_finished() -> void:
+	if $Flame.animation == "fade_in":
+		$Flame.play("fire")
+	if $Flame.animation == "fade_out":
+		$Flame.play("fire_small")

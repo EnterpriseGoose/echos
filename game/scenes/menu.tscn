@@ -1,0 +1,183 @@
+[gd_scene load_steps=16 format=3 uid="uid://c8vstkyf1jlwg"]
+
+[ext_resource type="Script" uid="uid://mwydstcnjgjr" path="res://scripts/menu.gd" id="1_e1xk3"]
+[ext_resource type="Theme" uid="uid://dn7f7du6w8hxx" path="res://echos.tres" id="1_hbrnw"]
+[ext_resource type="FontFile" uid="uid://cqqbr24buyp18" path="res://JosefinSlab.ttf" id="2_wpq4a"]
+[ext_resource type="PackedScene" uid="uid://bmqt2qjig5eof" path="res://scenes/hanging_lantern.tscn" id="2_yo2ad"]
+[ext_resource type="Texture2D" uid="uid://d2omn5l25hif4" path="res://sprites/exit-button.png" id="3_d5yjj"]
+[ext_resource type="Texture2D" uid="uid://c5002e5uvjv5b" path="res://sprites/play-button.png" id="4_pr0gn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_txmi8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgd7n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6phec"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hiimr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usduv"]
+
+[sub_resource type="Animation" id="Animation_wpqsh"]
+resource_name = "lantern_swing"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fxn2i"]
+_data = {
+&"lantern_swing": SubResource("Animation_wpqsh")
+}
+
+[sub_resource type="Gradient" id="Gradient_h2prw"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dsift"]
+gradient = SubResource("Gradient_h2prw")
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_e1xk3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.051971, 0.051971, 0.051971, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -637.0
+offset_top = -179.0
+offset_right = 597.0
+offset_bottom = 139.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_hbrnw")
+theme_override_fonts/normal_font = ExtResource("2_wpq4a")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]echos[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 185
+theme_override_styles/separator = SubResource("StyleBoxEmpty_txmi8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/Control"]
+layout_mode = 2
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 150.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("1_hbrnw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_mgd7n")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mgd7n")
+icon = ExtResource("3_d5yjj")
+icon_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 140
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6phec")
+
+[node name="Control2" type="Control" parent="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/Control2"]
+layout_mode = 2
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 150.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("1_hbrnw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_hiimr")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hiimr")
+icon = ExtResource("4_pr0gn")
+icon_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 935
+theme_override_styles/separator = SubResource("StyleBoxEmpty_usduv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fxn2i")
+}
+
+[node name="Control" type="Node2D" parent="."]
+
+[node name="HangingLantern" parent="Control" instance=ExtResource("2_yo2ad")]
+position = Vector2(1317, 314)
+swing = 1.0
+light_level = 8.0
+max_level = 3
+
+[node name="Pin2" parent="Control/HangingLantern/Chain" index="1"]
+position = Vector2(0, 283)
+
+[node name="MainLight" parent="Control/HangingLantern/Chain/Pin2/Lantern/RigidBody2D" index="0"]
+color = Color(1, 1, 0.85098, 1)
+range_layer_min = 1
+range_layer_max = 1
+texture_scale = 1.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-7.58391e+06, -1.85832e+07)
+scale = Vector2(1.07814e+07, 4.45423e+07)
+blend_mode = 1
+range_layer_min = 1
+range_layer_max = 1
+range_item_cull_mask = 7
+texture = SubResource("GradientTexture1D_dsift")
+texture_scale = 50.0
+
+[connection signal="pressed" from="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/Control/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/Control2/PlayButton" to="." method="_on_play_button_pressed"]
+
+[editable path="Control/HangingLantern"]
+[editable path="Control/HangingLantern/Chain"]
+[editable path="Control/HangingLantern/Chain/Pin2/Lantern"]

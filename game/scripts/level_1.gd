@@ -1,11 +1,17 @@
 extends Node2D
 class_name Level1
 
+@export var camera: CameraFollower
+
 @export_group("Section 1")
 @export var enemies_1: Array[Enemy]
 
 @export_group("Section 2")
 @export var respawn_pt_2: Node2D
+
+
+func _process(delta: float) -> void:
+	$Rain.global_position.x = camera.global_position.x
 
 func _on_enemy_trigger_1_body_entered(body: Node2D) -> void:
 	if body is Player:

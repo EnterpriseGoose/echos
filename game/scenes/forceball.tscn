@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi6oboqnmmblv"]
+[gd_scene load_steps=11 format=3 uid="uid://bi6oboqnmmblv"]
 
-[ext_resource type="Script" uid="uid://b3l30amp2ldv3" path="res://scripts/forceball.gd" id="1_rm7cy"]
-[ext_resource type="Texture2D" uid="uid://dq7e3qxkfr2i" path="res://sprites/forceball.png" id="2_3roc6"]
+[ext_resource type="Script" uid="uid://dlii0sh0j0rf7" path="res://scripts/forceball.gd" id="1_rm7cy"]
+[ext_resource type="Texture2D" uid="uid://cuabcldmmb4aj" path="res://sprites/lantern/forceball.png" id="2_qaa41"]
 
 [sub_resource type="Gradient" id="Gradient_i8ke0"]
 offsets = PackedFloat32Array(0, 0.657534, 0.785388)
@@ -14,13 +14,51 @@ height = 300
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_aaj7s"]
+atlas = ExtResource("2_qaa41")
+region = Rect2(0, 0, 100, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31fqs"]
+atlas = ExtResource("2_qaa41")
+region = Rect2(100, 0, 100, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axhti"]
+atlas = ExtResource("2_qaa41")
+region = Rect2(200, 0, 100, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb3sf"]
+atlas = ExtResource("2_qaa41")
+region = Rect2(300, 0, 100, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rudg"]
+atlas = ExtResource("2_qaa41")
+region = Rect2(400, 0, 100, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_df7co"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aaj7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31fqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axhti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gb3sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rudg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Forceball" type="Node2D"]
 script = ExtResource("1_rm7cy")
-
-[node name="Forceball" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(2.2, 2.2)
-texture = ExtResource("2_3roc6")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -35,4 +73,11 @@ collision_mask = 21
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 modulate = Color(1, 1, 1, 0)
-polygon = PackedVector2Array(0, -9, -4, -17, 8, -17, 17, -4, 17, 6, 8, 17, -6, 17, 3, 6, -4, -1)
+polygon = PackedVector2Array(-16, -4, -4, -9, 12, -16, 21, -3, 20, 7, 9, 18, -6, 9, -19, 3)
+
+[node name="Forceball" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.547511, 0.547511)
+sprite_frames = SubResource("SpriteFrames_df7co")
+frame = 3
+frame_progress = 0.212906

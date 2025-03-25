@@ -49,8 +49,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		on = true
 		state_changed.emit()
 		
-func push(force: Vector2, pos: Vector2):
-	lantern.apply_force(force * lantern.position.length())
+func push(force: Vector2, _pos: Vector2):
+	#lantern.apply_force(force * $Chain.pin2.position.length() * .01)
 		
 	for chain in $Chain/Chains.get_children():
 		if chain is RigidBody2D:

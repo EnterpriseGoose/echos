@@ -5,6 +5,9 @@ class_name Lantern
 @export var enemy_light: PointLight2D
 @export var light_level: float
 @export var energy_used: float = 0
+@export var max_level: float = 2
+
+signal lantern_lit
 
 var old_light_range: float = 0
 var new_light_range: float = light_level
@@ -14,10 +17,19 @@ var light_range = light_level
 @export var logger = false
 
 func _ready() -> void:
-	$Flame.play("fire")
+	if light_level == 0:
+		$Flame.play("none")
+	elif light_level > .5:
+		if Global.player_view == Global.VIEW.FORCE:
+			$Flame.play("force")
+		else:
+			$Flame.play("fire")
+	elif light_level < .5:
+		if Global.player_view == Global.VIEW.FORCE:
+			$Flame.play("force_small")
+		else:
+			$Flame.play("fire_small")
 	
-	Global.player_view_force_changed.connect(_on_player_view_force_changed)
-
 func _process(delta: float) -> void:
 	if logger:
 		print(light_level, ' ', light_range, ' ', new_light_range, ' ', old_light_range)
@@ -26,8 +38,11 @@ func _process(delta: float) -> void:
 	#else:
 		#if $RigidBody2D/Outline.modulate.a > 0:
 			#$RigidBody2D/Outline.modulate.a = max(0, $RigidBody2D/Outline.modulate.a - delta * 3)
-	if Global.player_view != Global.VIEW.NONE and (light_level > 0 and new_light_range >= light_level) or (light_level < 0 and new_light_range < 0):
-		#light_range = 0.1
+	
+	if Global.dying:
+		new_light_range = 0
+		light_range = 0
+	elif Global.player_view != Global.VIEW.FLAME and Global.player_view != Global.VIEW.FORCE and (light_level > 0 and new_light_range >= light_level) or (light_level < 0 and new_light_range < 0):
 		new_light_range = 0.1
 	else:
 		new_light_range = light_level
@@ -55,12 +70,22 @@ func _process(delta: float) -> void:
 	else:
 		set_directional_light_level(0)
 		
+	if Global.player_view == Global.VIEW.FORCE:
+		light.color = "#d4f1f0"
+	else:
+		light.color = "#ffffd9"
 
 func fade_light(level: float) -> void:
 	if light_level < .5 and level > .5:
-		$Flame.play("fade_in")
+		if Global.player_view == Global.VIEW.FORCE:
+			$Flame.play("force_fade_in")
+		else:
+			$Flame.play("fire_fade_in")
 	if light_level > .5 and level < .5:
-		$Flame.play("fade_out")
+		if Global.player_view == Global.VIEW.FORCE:
+			$Flame.play("force_fade_out")
+		else:
+			$Flame.play("fire_fade_out")
 	
 	light_level = level
 	old_light_range = light_range
@@ -74,25 +99,25 @@ func set_directional_light_level(level: float):
 	$DirectionalLight.energy = 1 + level
 	$DirectionalLight.offset.y = (1 - level) * -256
 
-func _on_player_view_force_changed(force_mode: bool):
-	if force_mode:
-		if light_level > .5:
-			$Flame.play("force")
-		else:
-			$Flame.play("force")
-		$MainLight.color = "#d4f1f0"
-		$DirectionalLight.color = "#d4f1f0"
-	else:
-		if light_level > .5:
-			$Flame.play("fire")
-		else:
-			$Flame.play("fire_small")
-		$MainLight.color = "#ffffd9"
-		$DirectionalLight.color = "#ffffd9"
-
-
 func _on_flame_animation_finished() -> void:
-	if $Flame.animation == "fade_in":
+	if $Flame.animation == "fire_fade_in":
 		$Flame.play("fire")
-	if $Flame.animation == "fade_out":
+		$Flame.autoplay
+	if $Flame.animation == "fire_fade_out":
 		$Flame.play("fire_small")
+		
+	if $Flame.animation == "force_fade_in":
+		$Flame.play("force")
+	if $Flame.animation == "force_fade_out":
+		$Flame.play("force_small")
+
+
+func _on_lit_area_area_entered(area: Area2D) -> void:
+	var parent = area.get_parent()
+	if (parent is Fireball or (parent is Lantern and parent.light_level > 0)) and light_level == 0:
+		fade_light(max_level)
+		lantern_lit.emit()
+		
+		if parent is Fireball:
+			parent.fading = true
+			parent.speed = 0.05

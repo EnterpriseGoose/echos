@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck68vhhpfw0io"]
+
+[ext_resource type="PackedScene" uid="uid://b72q84b75hahv" path="res://scenes/hanging_platform.tscn" id="1_xdy6y"]
+[ext_resource type="Texture2D" uid="uid://ioy5t3o01e7s" path="res://sprites/platform/platform_short_base.png" id="2_phxvh"]
+[ext_resource type="Texture2D" uid="uid://bxgwx2ifhtul0" path="res://sprites/platform/platform_short_outline.png" id="3_aht8u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckoqb"]
+size = Vector2(260, 28)
+
+[node name="HangingPlatform" instance=ExtResource("1_xdy6y")]
+
+[node name="CollisionShape2D2" parent="Chain/Pin2/Platform/RigidBody2D" index="0"]
+shape = SubResource("RectangleShape2D_ckoqb")
+
+[node name="PlatformLongBase" parent="Chain/Pin2/Platform/RigidBody2D" index="1"]
+texture = ExtResource("2_phxvh")
+
+[node name="PlatformLongOutline" parent="Chain/Pin2/Platform/RigidBody2D" index="2"]
+texture = ExtResource("3_aht8u")
+
+[editable path="Chain"]

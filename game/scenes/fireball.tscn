@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://tkrtx5h2p6iw"]
 
 [ext_resource type="Script" uid="uid://0chptrchj80x" path="res://scripts/fireball.gd" id="1_grbnr"]
-[ext_resource type="Texture2D" uid="uid://derwbb40xw1g" path="res://sprites/fireball.png" id="2_m1caq"]
+[ext_resource type="Texture2D" uid="uid://derwbb40xw1g" path="res://sprites/lantern/fireball.png" id="2_m1caq"]
 
 [sub_resource type="Gradient" id="Gradient_i8ke0"]
 offsets = PackedFloat32Array(0, 0.657534, 0.785388)

@@ -2,7 +2,11 @@ extends Node2D
 class_name Forceball
 
 var fading = false
+var used = false
 var speed = 1
+
+func _ready() -> void:
+	$Forceball.play("default")
 
 func _process(delta: float) -> void:
 	position += Vector2.from_angle(rotation) * delta * 300 * speed
@@ -22,19 +26,19 @@ func _process(delta: float) -> void:
 	
 	for body: PhysicsBody2D in $Area2D.get_overlapping_bodies():
 		var parent_node = body.get_parent()
-		if parent_node is Enemy:
-			parent_node.add_force = Vector2.from_angle(rotation) * delta * 300
+		if body is Enemy:
+			body.add_force = Vector2.from_angle(rotation) * delta * 500
 			speed = 0.9
-			if parent_node.type == Enemy.ENEMY_TYPE.MAD:
-				parent_node.speed = 0
+			if body.type == Enemy.ENEMY_TYPE.MAD:
+				body.speed = 0
 		var chain_elem = body.find_parent("Chain")
 		if chain_elem:
 			var hanging_elem = chain_elem.get_parent()
 			if hanging_elem is HangingPlatform:
-				hanging_elem.push(Vector2.from_angle(rotation), global_position)
+				hanging_elem.push(Vector2.from_angle(rotation) / 2, global_position)
 			if hanging_elem is HangingLantern:
 				hanging_elem.push(Vector2.from_angle(rotation) * 7, global_position)
-		if parent_node is Door or parent_node is Level1:
+		if parent_node is Door or body.is_in_group("LevelCollider"):
 			$PointLight2D.energy = max($PointLight2D.energy - 5 * delta, 0)
 			$Forceball.modulate.a = max($Forceball.modulate.a - 5 * delta, 0)
 			speed = 0.1

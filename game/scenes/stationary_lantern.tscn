@@ -9,9 +9,12 @@ script = ExtResource("1_du5i0")
 
 [node name="Lantern" parent="." instance=ExtResource("2_0wpht")]
 position = Vector2(0, -48)
+gravity_scale = 0.0
 light_level = 3.0
 
 [node name="Stationary-lantern" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
 scale = Vector2(0.384198, 0.384198)
 texture = ExtResource("3_od2u8")
+
+[connection signal="lantern_lit" from="Lantern" to="." method="_on_lantern_lantern_lit"]

@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 		texture_scale += delta * 7
 	
 	if texture_scale >= 4:
-		energy = max(0, (energy - delta * 1))
+		energy = max(0, (energy - delta * 3))
 		
 	if energy == 0:
 		queue_free()

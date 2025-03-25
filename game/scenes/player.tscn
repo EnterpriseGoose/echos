@@ -5,9 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://cemb77dwi7hag" path="res://scenes/lantern.tscn" id="3_clffo"]
 [ext_resource type="Texture2D" uid="uid://bjh2mjkynt83j" path="res://sprites/player/player-running.png" id="3_qrtlp"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iugm5"]
-radius = 56.9297
-height = 210.138
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(63.8005, 140.419)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apj41"]
 atlas = ExtResource("2_vobtr")
@@ -128,30 +127,34 @@ animations = [{
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("lantern") groups=["Player"]]
 collision_layer = 2
 floor_max_angle = 0.610865
-floor_snap_length = 2.0
+floor_snap_length = 3.0
 script = ExtResource("1_1mdxw")
 lantern = NodePath("Lantern")
 fireballs_enabled = true
+lantern_enabled = true
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="." groups=["Player"]]
 z_index = 1
-position = Vector2(9, 1)
+position = Vector2(0.500002, -0.500001)
 scale = Vector2(1.0188, 1.01838)
-shape = SubResource("CapsuleShape2D_iugm5")
+shape = SubResource("RectangleShape2D_dqkch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 5
 texture_filter = 1
-position = Vector2(-2, 2)
-scale = Vector2(1.0751, 1.0751)
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6t0ii")
-animation = &"run"
+animation = &"idle"
+frame_progress = 0.419807
 
 [node name="LanternGoal" type="Node2D" parent="."]
-position = Vector2(72, -14)
+position = Vector2(49, -14)
 scale = Vector2(4.2, 4.2)
 
 [node name="Lantern" parent="." groups=["Player"] instance=ExtResource("3_clffo")]
+modulate = Color(1, 1, 1, 0)
 z_index = 5
-position = Vector2(72, -14)
+position = Vector2(49, -14)
+gravity_scale = 0.0
 
 [editable path="Lantern"]

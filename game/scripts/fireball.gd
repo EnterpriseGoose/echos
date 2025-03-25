@@ -25,19 +25,15 @@ func _process(delta: float) -> void:
 			fading = true
 			
 	for body: PhysicsBody2D in $Area2D.get_overlapping_bodies():
-		var parent_node = body.get_parent()
-		if parent_node is Door or parent_node is Level1:
-			print($PointLight2D.energy)
-			$PointLight2D.energy = max($PointLight2D.energy - 5 * delta, 0)
-			$Fireball.modulate.a = max($Fireball.modulate.a - 5 * delta, 0)
-			speed = 0.1
+		#var parent_node = body.get_parent()
+		if body.name == "CameraBarrier" or body.is_in_group("LevelCollider"):
+			$PointLight2D.energy = max($PointLight2D.energy - 2 * delta, 0)
+			$Fireball.modulate.a = max($Fireball.modulate.a - 2 * delta, 0)
+			speed = 0.05
 			fading = true
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	var enemy_node = body.get_parent()
-	if enemy_node is Enemy and $PointLight2D.energy > .25 and not used and enemy_node.type != Enemy.ENEMY_TYPE.MAD:
-		enemy_node.kill()
-		$PointLight2D.energy = max($PointLight2D.energy - 1, 0)
-		$Fireball.modulate.a = max($Fireball.modulate.a - 1, 0)
-		used = true
-		speed = 0.1
+		if body is Enemy and $PointLight2D.energy > .25 and not used and body.type != Enemy.ENEMY_TYPE.MAD:
+			body.kill()
+			$PointLight2D.energy = max($PointLight2D.energy - 1, 0)
+			$Fireball.modulate.a = max($Fireball.modulate.a - 1, 0)
+			used = true
+			speed = 0.1

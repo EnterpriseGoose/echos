@@ -145,32 +145,29 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_usduv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_fxn2i")
+&"": SubResource("AnimationLibrary_fxn2i")
 }
 
 [node name="Control" type="Node2D" parent="."]
 
 [node name="HangingLantern" parent="Control" instance=ExtResource("2_yo2ad")]
 position = Vector2(1317, 314)
-swing = 1.0
-light_level = 8.0
+swing = 0.5
 max_level = 3
 
 [node name="Pin2" parent="Control/HangingLantern/Chain" index="1"]
-position = Vector2(0, 283)
+position = Vector2(-70, 264)
 
-[node name="MainLight" parent="Control/HangingLantern/Chain/Pin2/Lantern/RigidBody2D" index="0"]
-color = Color(1, 1, 0.85098, 1)
-range_layer_min = 1
-range_layer_max = 1
-texture_scale = 1.0
+[node name="MainLight" parent="Control/HangingLantern/Chain/Pin2/Lantern" index="0"]
+range_layer_min = 5
+range_layer_max = 5
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 position = Vector2(-7.58391e+06, -1.85832e+07)
 scale = Vector2(1.07814e+07, 4.45423e+07)
 blend_mode = 1
-range_layer_min = 1
-range_layer_max = 1
+range_layer_min = 5
+range_layer_max = 5
 range_item_cull_mask = 7
 texture = SubResource("GradientTexture1D_dsift")
 texture_scale = 50.0

@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://7qke2cd2m1ex"]
+
+[ext_resource type="Script" uid="uid://c6f2f0o5ysv1o" path="res://scripts/pass_through_platform.gd" id="1_hir8s"]
+[ext_resource type="Texture2D" uid="uid://c0yg8hvufx0lk" path="res://sprites/platform/pass_through_platform_base.png" id="1_hiwwj"]
+[ext_resource type="Texture2D" uid="uid://chl1078r4cdgh" path="res://sprites/platform/pass_through_platform_outline.png" id="2_hir8s"]
+
+[sub_resource type="Curve2D" id="Curve2D_hu0tl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, -0.751315, -220.135, 0, 200)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hu0tl"]
+size = Vector2(422, 9)
+
+[node name="Path2D" type="Path2D"]
+z_index = -5
+curve = SubResource("Curve2D_hu0tl")
+script = ExtResource("1_hir8s")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotation = 1.5708
+rotates = false
+loop = false
+
+[node name="PassThroughPlatformBase" type="Sprite2D" parent="PathFollow2D"]
+rotation = -1.5708
+texture = ExtResource("1_hiwwj")
+
+[node name="PassThroughPlatformOutline" type="Sprite2D" parent="PathFollow2D"]
+light_mask = 2
+rotation = -1.5708
+texture = ExtResource("2_hir8s")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PathFollow2D"]
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_hu0tl")
+one_way_collision = true
+one_way_collision_margin = 10.0

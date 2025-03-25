@@ -12,7 +12,7 @@ var single_chain = preload("res://scenes/single_chain.tscn")
 func _ready() -> void:
 	var ex_chain = single_chain.instantiate()
 	var ex_chain_sprite = ex_chain.find_child("Sprite2D")
-	var individual_chain_len = (ex_chain_sprite.texture.get_size().y * ex_chain_sprite.scale.y) * .6
+	var individual_chain_len = (ex_chain_sprite.texture.get_size().y * ex_chain_sprite.scale.y) * .8
 	var pin_delta = chain_end.position - chain_start.position
 	var chain_len =	sqrt(pin_delta.x ** 2 + pin_delta.y ** 2)
 	var chain_num = floor(chain_len / individual_chain_len)
